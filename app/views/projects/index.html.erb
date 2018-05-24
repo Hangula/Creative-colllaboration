@@ -1,0 +1,9 @@
+<h1>Index View</h1>
+
+
+<% @projects.each do |project| %>
+	<h2><%= link_to project.title, project_path(project) %></h2>
+<% end %>
+
+
+<%= link_to "Add Project", new_project_path %>
