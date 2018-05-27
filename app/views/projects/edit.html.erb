@@ -1,6 +1,31 @@
-<h1>Edit Project</h1>
+ <h1>Edit Project</h1>
 
-<%= render 'form' %>
+<%= simple_form_for @project, :html => {:multipart => true} do |f|	 %>
+
+		<%= f.select :category_id, @categories %>
+
+	<%= f.file_field :project_img %>	
+
+	<%= f.input :title, label: "Project Title" %>
+
+	<%= f.input :description, label: "description"%>
+
+	<%= f.input :budget, label: "Project budget"%>
+
+	<%= f.input :company, label: "Company"%>
+
+	<%= f.input :start_date, label: "Starting date"%>
+
+	<%= f.input :due_date, label: "Project due date"%>
+
+	<%= f.input :hustle_points, label: "Hustle Points"%>
+
+
+	<%= f.button :submit %>
+
+<% end %> 
+ 
+
 
  
  

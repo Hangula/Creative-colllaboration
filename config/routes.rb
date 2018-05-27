@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
 	
-	resources :projects
+  devise_for :users
+	resources :projects do
+		resources :reviews
+	
+	end
 	root 'projects#index'
 end

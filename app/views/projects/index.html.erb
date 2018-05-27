@@ -1,9 +1,25 @@
-<h1>Index View</h1>
 
+
+<h1 class="current-category"><%= params[:category]%></h1>
+
+<% if @projects.count == 0 %> 
+<h1>There are no books currently in the category.</h1>
+
+<% else %> 
+
+<div class="row">
 
 <% @projects.each do |project| %>
+<div class="col-md-3">
 	<h2><%= link_to project.title, project_path(project) %></h2>
+	<a href="/projects/<%= project.id %>">
+	<%= image_tag project.project_img.url(:project_index), class: "book" %>	
+
+	</a>
+
+	</div>
+
+	<% end %>
+
+	</div>
 <% end %>
-
-
-<%= link_to "Add Project", new_project_path %>

@@ -3,21 +3,28 @@ class ProjectsController < ApplicationController
 	before_action :find_project, only: [:show, :edit, :update, :destroy]
 
 	def index
+		if params[:category].blank?
 		@projects = Project.all.order("created_at DESC")
+		else
+		@category_id = Category.find_by(name: params[:category]).id
+		@projects = Project.where(:category_id => @category_id).order("created_at DESC")
+	end
 	end
 
 	def show
 	end
 
 	def new
-		@project = Project.new
+		@project = current_user.projects.build
+		@categories = Category.all.map{ |c| [c.name, c.id] }
 	end
 
 	def edit
-		
+		@categories = Category.all.map{ |c| [c.name, c.id] }
 	end
 
 	def update
+		@project.category_id = params[:category_id]
 		if @project.update(project_params)
 			redirect_to project_path(@project)
 		else
@@ -31,8 +38,8 @@ class ProjectsController < ApplicationController
 	end
 
 	def create
-		@project = Project.new(project_params)
-
+		@project = current_user.projects.build(project_params)
+		@project.category_id = params[:category_id]
 		if @project.save
 			redirect_to root_path
 		else
@@ -43,7 +50,7 @@ class ProjectsController < ApplicationController
 	private
 
 		def project_params
-			params.require(:project).permit(:title, :description, :company, :start_date, :due_date, :hustle_points)
+			params.require(:project).permit(:title, :description, :company, :start_date, :due_date, :hustle_points, :category_id, :project_img)
 		end
 
 		def find_project

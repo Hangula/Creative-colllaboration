@@ -1,10 +1,40 @@
-<h2><%= @project.title %></h2>
-<h3><%= @project.description %></h3>
-<p><%= @project.budget %> </p>
+<div class="row">
+
+	<div class="col-md-4">
+	<%= image_tag @project.project_img.url(:project_show), class: "book-show	" %>
+	</div>
+
+	<div class="col-md-8">
+	<h2><%= @project.title %></h2>
+	<h3><%= @project.description %></h3>
+	<p><%= @project.budget %> </p>
+	</div>
+
+</div>	
+
+<div class="row">
+	<div class="col-md-4">
+
+		<!--where the reviews go -->
+		
+	</div>
+
+</div>
 
 <%= link_to 'Back', root_path  %>
+
+<% if user_signed_in? %>
+
+
+<% if @project.user_id == current_user.id %>
+
 <%= link_to 'Edit', edit_project_path(@project) %>
 <%= link_to "Delete", project_path(@project), method: :delete, data: { confirm: "Are you sure?"} %>
 
 
+<% end %>
+<% end %>
 
+
+
+ 
